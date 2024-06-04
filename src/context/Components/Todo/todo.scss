@@ -1,0 +1,52 @@
+.todo {
+  text-align: left;
+  padding: 20px;
+}
+
+.todo-header {
+  background-color: black;
+  color: white;
+  padding: 10px;
+}
+
+.todo-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.todo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.todo-form label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.todo-form span {
+  margin-bottom: 5px;
+}
+
+.todo-form input[type="text"] {
+  padding: 5px;
+}
+
+.todo-form input[type="range"] {
+  margin-top: 5px;
+}
+
+.todo-form button {
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.todo-form button:hover {
+  background-color: darkblue;
+}

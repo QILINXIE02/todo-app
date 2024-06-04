@@ -1,37 +1,37 @@
-
-body{
-  background-color: rgb(11,26,50);
-  
+.app {
+  text-align: center;
 }
 
-.login{
-  width: 100vw;
-  height: 100vh;
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: blue;
+  padding: 10px;
+}
+
+.left-header {
+  display: flex;
+  gap: 10px;
+}
+
+.right-header {
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
-
-.loginBox{
-  border: 3px solid rgba(79, 106, 226, 0.678);
-  background-color:rgb(235,241,245) ;
-  height: 50%;
-  width: 40%;
-  padding: 20px;
-  border-radius: 10px;
-  justify-content: center;
-  align-items: center;
-} 
-
-
-.loginButton{
-  height: 50px;
-  border-radius: 10px;
-  border: none;
-  background-color: #1775ee;
+.nav-link {
   color: white;
-  font-size: 20px;
-  font-weight: 400;
+  text-decoration: none;
+}
+
+.logout-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px;
   cursor: pointer;
-} 
+}
+
+.logout-button:hover {
+  background-color: darkred;
+}
