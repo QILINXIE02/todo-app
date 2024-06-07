@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { SettingsContext } from '../../context/Settings';
+import { SettingsContext } from '../../context/index';
 
 const List = ({ items }) => {
   const { displaySettings } = useContext(SettingsContext);
