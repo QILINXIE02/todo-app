@@ -1,0 +1,77 @@
+.settings {
+  padding: 20px;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .settings-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    section {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .settings-form {
+      flex: 1;
+
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .gear-icon {
+          font-size: 1.5em;
+        }
+      }
+
+      label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 10px 0;
+
+        input[type="checkbox"] {
+          margin-left: 10px;
+        }
+
+        input[type="number"] {
+          width: 50px;
+        }
+
+        input[type="text"] {
+          flex: 1;
+          margin-left: 10px;
+        }
+      }
+
+      .confirm-button {
+        background-color: rgb(56, 117, 240);
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+
+    .settings-summary {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 20px;
+  }
+}
