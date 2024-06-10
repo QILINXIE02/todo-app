@@ -1,11 +1,14 @@
 # todo-app
 
+## Phase 1 Requirements
+This application currently combines application state and user settings at the top level, which was a good proof of concept. However, to make it production-ready, we need to properly modularize the application into separate components and implement the Context API to manage basic application settings.
+
+In Phase 1, global state is managed through the Context API, specifically in the `Settings` context. This context provides settings such as the number of items to display per screen, whether to hide completed items, and the default sorting field. Components consume these settings by accessing the `SettingsContext`, either directly or through custom hooks, and utilizing the settings values provided by the context.
+
 Day 1: 
 ## UML: ![alt text](img/UML.png)
 
 ### Global State Consumption:
-
-In Phase 1, global state is managed through the Context API, specifically in the `Settings` context. This context provides settings such as the number of items to display per screen, whether to hide completed items, and the default sorting field. Components consume these settings by accessing the `SettingsContext`, either directly or through custom hooks, and utilizing the settings values provided by the context.
 
 ### Operation of the `useForm()` Hook:
 
@@ -16,3 +19,7 @@ The `useForm()` hook is a custom hook designed to manage form state and submissi
 - **handleChange**: This function is responsible for updating form values as the user types or interacts with form elements. It takes an event object as input and extracts the name and value of the input field from it. It then updates the form state with the new value.
 
 The hook utilizes React's `useState` hook internally to manage form state, ensuring that the form values are reactive and update the UI accordingly.
+
+
+## Credit
+ChatGPT helped implement the test files.
