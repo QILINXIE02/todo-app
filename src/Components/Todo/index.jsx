@@ -45,83 +45,86 @@ const Todo = () => {
 
   return (
     <div className="todo-container">
-      <header data-testid="todo-header">
+      <header className="header-section" data-testid="todo-header">
         <h1 data-testid="todo-h1">To Do List: {incomplete} items pending</h1>
       </header>
 
-      <div className="add-todo">
-        <Title order={3}>Add To Do Item</Title>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>
-              To Do Item
-              <input
-                type="text"
-                name="text"
-                placeholder="Item Details"
-                onChange={handleChange}
-              />
-            </label>
-          </div>
-          <div className="form-group">
-            <label>
-              Assigned To
-              <input
-                type="text"
-                name="assignee"
-                placeholder="Assignee Name"
-                onChange={handleChange}
-              />
-            </label>
-          </div>
-          <div className="form-group">
-            <label>
-              Difficulty
-              <input
-                type="range"
-                min="1"
-                max="5"
-                name="difficulty"
-                defaultValue={defaultValues.difficulty}
-                onChange={handleChange}
-              />
-            </label>
-          </div>
-          <Button type="submit">Add To Do Item</Button>
-        </form>
-      </div>
+      <div className="content-section">
+        <div className="add-todo">
+          <Title order={3}>Add To Do Item</Title>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>
+                To Do Item
+                <input
+                  type="text"
+                  name="text"
+                  placeholder="Item Details"
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+            <div className="form-group">
+              <label>
+                Assigned To
+                <input
+                  type="text"
+                  name="assignee"
+                  placeholder="Assignee Name"
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+            <div className="form-group">
+              <label>
+                Difficulty
+                <input
+                  type="range"
+                  min="1"
+                  max="5"
+                  name="difficulty"
+                  defaultValue={defaultValues.difficulty}
+                  onChange={handleChange}
+                  className="difficulty-slider"
+                />
+              </label>
+            </div>
+            <Button type="submit" className="add-todo-button">Add To Do Item</Button>
+          </form>
+        </div>
 
-      <div className="todos">
-        <Title order={3}>Pending Items</Title>
-        {paginatedTodos
-          .filter((todo) => !displaySettings.hideCompleted || !todo.complete)
-          .map((todo) => (
-            <Paper key={todo.id} shadow="xs" padding="md" className="todo-item">
-              <Group position="apart">
-                <div>
-                  <Button
-                    color={todo.complete ? 'red' : 'green'}
-                    onClick={() => toggleComplete(todo.id)}
-                  >
-                    {todo.complete ? 'Complete' : 'Pending'}
+        <div className="todos">
+          <Title order={3}>Pending Items</Title>
+          {paginatedTodos
+            .filter((todo) => !displaySettings.hideCompleted || !todo.complete)
+            .map((todo) => (
+              <Paper key={todo.id} shadow="xs" padding="md" className="todo-item">
+                <Group position="apart">
+                  <div>
+                    <Button
+                      className="pending-button"
+                      onClick={() => toggleComplete(todo.id)}
+                    >
+                      {todo.complete ? 'Complete' : 'Pending'}
+                    </Button>
+                  </div>
+                  <Button variant="outline" color="red" onClick={() => deleteItem(todo.id)}>
+                    X
                   </Button>
-                </div>
-                <Button variant="outline" color="red" onClick={() => deleteItem(todo.id)}>
-                  X
-                </Button>
-              </Group>
-              <Text>{todo.text}</Text>
-              <Group position="apart">
-                <Text>{todo.assignee}</Text>
-                <Text>Difficulty: {todo.difficulty}</Text>
-              </Group>
-            </Paper>
-          ))}
-        <Pagination
-          total={Math.ceil(list.length / itemsPerPage)}
-          page={currentPage}
-          onChange={setCurrentPage}
-        />
+                </Group>
+                <Text>{todo.text}</Text>
+                <Group position="apart">
+                  <Text>{todo.assignee}</Text>
+                  <Text>Difficulty: {todo.difficulty}</Text>
+                </Group>
+              </Paper>
+            ))}
+          <Pagination
+            total={Math.ceil(list.length / itemsPerPage)}
+            page={currentPage}
+            onChange={setCurrentPage}
+          />
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 
 const useTodoList = () => {
@@ -32,7 +32,7 @@ const useTodoList = () => {
   };
 
   // Recalculate incomplete count whenever todoList changes
-  useState(() => {
+  useEffect(() => {
     const newIncompleteCount = todoList.filter(item => !item.complete).length;
     setIncompleteCount(newIncompleteCount);
   }, [todoList]);
