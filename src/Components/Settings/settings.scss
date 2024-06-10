@@ -1,0 +1,25 @@
+.settings {
+  margin-top: 20px;
+
+  .settings-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    button {
+      margin-top: 10px;
+    }
+
+    .updated-settings {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+  }
+}

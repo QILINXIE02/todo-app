@@ -1,30 +1,23 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Todo from './Components/Todo';
+import Settings from './Components/Settings';
+import Header from './Components/Header';
 import SettingsProvider from './context/Setting';
-import './App.scss'; // Import the new styles
+import './App.scss';
 
 const App = () => {
   return (
-    <Router>
-      <SettingsProvider>
-        <div className="app">
-          <header className="app-header">
-            <div className="left-header">
-              <Link to="/" className="nav-link">Home</Link>
-              <Link to="/settings" className="nav-link">Settings</Link>
-            </div>
-            <div className="right-header">
-              <button className="logout-button">Logout</button>
-            </div>
-          </header>
-          <Routes>
-            <Route path="/" element={<Todo />} />
-          </Routes>
-        </div>
-      </SettingsProvider>
-    </Router>
+    <SettingsProvider>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Todo />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
+        <footer>@2024 Qilin Xie</footer>
+      </Router>
+    </SettingsProvider>
   );
 };
 
