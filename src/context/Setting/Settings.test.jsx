@@ -1,7 +1,8 @@
+// src/context/Settings.test.jsx
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Settings from '../../Components/Settings';
+import Settings from '../../Components/Settings'; // Update import path
 import SettingsProvider from './index';
 
 test('renders Settings component and updates context values', () => {
