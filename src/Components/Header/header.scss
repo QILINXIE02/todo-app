@@ -1,0 +1,63 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(50, 136, 255);
+  padding: 10px;
+
+  .header-left {
+    display: flex;
+    gap: 15px;
+  }
+
+  .header-right {
+    color: black;
+
+    .logout-button {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+
+//
+
+.left-header {
+  display: flex;
+  gap: 10px;
+}
+
+.right-header {
+  display: flex;
+  align-items: center;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+}
+
+.logout-button {
+  background-color: rgb(9, 140, 28);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: darkred;
+}
