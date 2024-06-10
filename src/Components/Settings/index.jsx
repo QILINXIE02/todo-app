@@ -12,12 +12,13 @@ const Settings = () => {
   const [updatedSettings, setUpdatedSettings] = useState(null);
 
   const handleSubmit = () => {
-    setDisplaySettings({
+    const newSettings = {
       hideCompleted: showCompleted,
       itemsPerPage,
       sortWord,
-    });
-    setUpdatedSettings({ showCompleted, itemsPerPage, sortWord });
+    };
+    setDisplaySettings(newSettings);
+    setUpdatedSettings(newSettings);
   };
 
   return (
@@ -51,7 +52,7 @@ const Settings = () => {
         {updatedSettings && (
           <Paper shadow="xs" padding="md">
             <Text>Updated Settings:</Text>
-            <Text>Hide Completed ToDos: {updatedSettings.showCompleted ? 'Yes' : 'No'}</Text>
+            <Text>Hide Completed ToDos: {updatedSettings.hideCompleted ? 'Yes' : 'No'}</Text>
             <Text>Items Per Page: {updatedSettings.itemsPerPage}</Text>
             <Text>Sort Keyword: {updatedSettings.sortWord}</Text>
           </Paper>

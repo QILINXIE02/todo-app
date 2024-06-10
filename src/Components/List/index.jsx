@@ -1,17 +1,20 @@
 import React, { useContext } from 'react';
-import { SettingsContext } from '../../context/index';
+import { SettingsContext } from '../../context/Setting';
+import { Pagination } from '@mantine/core';
+import './lists.scss';
 
 const List = ({ items }) => {
   const { displaySettings } = useContext(SettingsContext);
-  const { itemsPerPage } = displaySettings;
+  const { itemsPerPage, hideCompleted } = displaySettings;
+  const [currentPage, setCurrentPage] = React.useState(1);
 
-  const paginatedItems = items.slice(0, itemsPerPage);
+  const filteredItems = hideCompleted ? items.filter(item => !item.complete) : items;
+  const paginatedItems = filteredItems.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
     <div>
       {paginatedItems.map(item => (
         <div key={item.id}>
-          {/* Display item details */}
           <p>{item.text}</p>
           <p>Assigned To: {item.assignee}</p>
           <p>Difficulty: {item.difficulty}</p>
@@ -19,7 +22,11 @@ const List = ({ items }) => {
           <hr />
         </div>
       ))}
-      {/* Pagination component here */}
+      <Pagination
+        total={Math.ceil(filteredItems.length / itemsPerPage)}
+        page={currentPage}
+        onChange={setCurrentPage}
+      />
     </div>
   );
 };
