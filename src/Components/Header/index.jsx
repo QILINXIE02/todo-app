@@ -10,8 +10,7 @@ const Header = () => {
         <Link to="/settings">Settings</Link>
       </div>
       <div className="header-right">
-        <span>Logout</span>
-        <button className="logout-button">Logout</button>
+        <button className="logout-button">Log out</button>
       </div>
     </header>
   );
