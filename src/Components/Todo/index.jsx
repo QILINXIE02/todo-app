@@ -1,111 +1,105 @@
-import React, { useEffect, useState } from 'react';
-import useForm from '../../hooks/form';
-import './todo.scss'; 
-
-import { v4 as uuid } from 'uuid';
+import React, { useContext, useState } from 'react';
+import { SettingsContext } from '../../context/Setting';
+import { Pagination, Button, Paper, Group, Text, Title } from '@mantine/core';
+import './todo.scss';
 
 const Todo = () => {
-  const [defaultValues] = useState({
-    difficulty: 4,
-  });
-  const [list, setList] = useState([]);
-  const [incomplete, setIncomplete] = useState([]);
-  const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
+  const { displaySettings } = useContext(SettingsContext);
+  const [todos, setTodos] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [newTodo, setNewTodo] = useState({ item: '', assignee: '', difficulty: 1 });
+  const itemsPerPage = displaySettings.itemsPerPage;
 
-  function addItem(item) {
-    item.id = uuid();
-    item.complete = false;
-    console.log(item);
-    setList([...list, item]);
-  }
+  const handleAddTodo = () => {
+    setTodos([...todos, { ...newTodo, complete: false }]);
+    setNewTodo({ item: '', assignee: '', difficulty: 1 });
+  };
 
-  function deleteItem(id) {
-    const items = list.filter((item) => item.id !== id);
-    setList(items);
-  }
+  const handleCompleteToggle = (index) => {
+    const updatedTodos = [...todos];
+    updatedTodos[index].complete = !updatedTodos[index].complete;
+    setTodos(updatedTodos);
+  };
 
-  function toggleComplete(id) {
-    const items = list.map((item) => {
-      if (item.id === id) {
-        item.complete = !item.complete;
-      }
-      return item;
-    });
+  const handleRemoveTodo = (index) => {
+    const updatedTodos = todos.filter((_, i) => i !== index);
+    setTodos(updatedTodos);
+  };
 
-    setList(items);
-  }
-
-  useEffect(() => {
-    let incompleteCount = list.filter((item) => !item.complete).length;
-    setIncomplete(incompleteCount);
-    document.title = `To Do List: ${incomplete}`;
-    // linter will want 'incomplete' added to dependency array unnecessarily.
-    // disable code used to avoid linter warning
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [list]);
+  const paginatedTodos = todos.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
-    <>
-      <header data-testid="todo-header">
-        <h1 data-testid="todo-h1">To Do List: {incomplete} items pending</h1>
-      </header>
-
-      <form onSubmit={handleSubmit}>
-        <h2>Add To Do Item</h2>
-
-        <label>
-          <span>To Do Item</span>
-          <input
-            onChange={handleChange}
-            name="text"
-            type="text"
-            placeholder="Item Details"
-          />
-        </label>
-
-        <label>
-          <span>Assigned To</span>
-          <input
-            onChange={handleChange}
-            name="assignee"
-            type="text"
-            placeholder="Assignee Name"
-          />
-        </label>
-
-        <label>
-          <span>Difficulty</span>
-          <input
-            onChange={handleChange}
-            defaultValue={defaultValues.difficulty}
-            type="range"
-            min={1}
-            max={5}
-            name="difficulty"
-          />
-        </label>
-
-        <label>
-          <button type="submit">Add Item</button>
-        </label>
-      </form>
-
-      {list.map((item) => (
-        <div key={item.id}>
-          <p>{item.text}</p>
-          <p>
-            <small>Assigned to: {item.assignee}</small>
-          </p>
-          <p>
-            <small>Difficulty: {item.difficulty}</small>
-          </p>
-          <div onClick={() => toggleComplete(item.id)}>
-            Complete: {item.complete.toString()}
-          </div>
-          <hr />
+    <div className="todo-container">
+      <div className="add-todo">
+        <Title order={3}>Add To Do Item</Title>
+        <div className="form-group">
+          <label>
+            To Do Item
+            <input
+              type="text"
+              value={newTodo.item}
+              onChange={(e) => setNewTodo({ ...newTodo, item: e.target.value })}
+            />
+          </label>
         </div>
-      ))}
-    </>
+        <div className="form-group">
+          <label>
+            Assigned To
+            <input
+              type="text"
+              value={newTodo.assignee}
+              onChange={(e) => setNewTodo({ ...newTodo, assignee: e.target.value })}
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label>
+            Difficulty
+            <input
+              type="number"
+              min="1"
+              max="5"
+              value={newTodo.difficulty}
+              onChange={(e) => setNewTodo({ ...newTodo, difficulty: e.target.value })}
+            />
+          </label>
+        </div>
+        <Button onClick={handleAddTodo}>Add To Do Item</Button>
+      </div>
+
+      <div className="todos">
+        <Title order={3}>Pending Items</Title>
+        {paginatedTodos
+          .filter((todo) => !displaySettings.hideCompleted || !todo.complete)
+          .map((todo, index) => (
+            <Paper key={index} shadow="xs" padding="md" className="todo-item">
+              <Group position="apart">
+                <div>
+                  <Button
+                    color={todo.complete ? 'red' : 'green'}
+                    onClick={() => handleCompleteToggle(index)}
+                  >
+                    {todo.complete ? 'Complete' : 'Pending'}
+                  </Button>
+                </div>
+                <Button variant="outline" color="red" onClick={() => handleRemoveTodo(index)}>
+                  X
+                </Button>
+              </Group>
+              <Text>{todo.item}</Text>
+              <Group position="apart">
+                <Text>{todo.assignee}</Text>
+                <Text>Difficulty: {todo.difficulty}</Text>
+              </Group>
+            </Paper>
+          ))}
+        <Pagination
+          total={Math.ceil(todos.length / itemsPerPage)}
+          page={currentPage}
+          onChange={setCurrentPage}
+        />
+      </div>
+    </div>
   );
 };
 

@@ -1,25 +1,29 @@
 .settings {
   margin-top: 20px;
 
-  .settings-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  .mantine-Group-root {
+    margin-bottom: 10px;
 
     label {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
+      display: block;
+      margin-bottom: 5px;
     }
 
-    button {
-      margin-top: 10px;
-    }
-
-    .updated-settings {
-      margin-top: 20px;
-      padding: 10px;
+    input {
+      width: 100%;
+      padding: 5px;
       border: 1px solid #ccc;
+      border-radius: 4px;
     }
+  }
+
+  button {
+    margin-top: 10px;
+  }
+
+  .updated-settings {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
   }
 }

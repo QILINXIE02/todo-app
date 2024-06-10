@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { SettingsContext } from '../../context/Setting';
+import { Paper, Group, Switch, NumberInput, TextInput, Button, Title, Text } from '@mantine/core';
+import { IconSettings } from '@tabler/icons-react';
 import './settings.scss';
 
 const Settings = () => {
@@ -19,48 +21,43 @@ const Settings = () => {
   };
 
   return (
-    <div className="settings">
-      <h2>Manage Settings</h2>
-      <div className="settings-group">
-        <label>
-          Show Completed ToDos
-          <input
-            type="checkbox"
-            checked={showCompleted}
-            onChange={(event) => setShowCompleted(event.currentTarget.checked)}
-          />
-        </label>
-        <label>
-          Items Per Page
-          <input
-            type="number"
-            value={itemsPerPage}
-            onChange={(event) => setItemsPerPage(Number(event.currentTarget.value))}
-            min="1"
-            max="10"
-          />
-        </label>
-        <label>
-          Sort Keyword
-          <input
-            type="text"
-            value={sortWord}
-            onChange={(event) => setSortWord(event.currentTarget.value)}
-          />
-        </label>
-        <button onClick={handleSubmit} style={{ backgroundColor: 'rgb(56, 117, 240)' }}>
+    <Paper shadow="xs" padding="md" className="settings">
+      <Group position="apart" align="center">
+        <Title order={2}>
+          <IconSettings /> Manage Settings
+        </Title>
+      </Group>
+      <Group direction="column" spacing="lg" align="start">
+        <Switch
+          label="Hide Completed ToDos"
+          checked={showCompleted}
+          onChange={(event) => setShowCompleted(event.currentTarget.checked)}
+        />
+        <NumberInput
+          label="Items Per Page"
+          value={itemsPerPage}
+          onChange={(value) => setItemsPerPage(value)}
+          min={1}
+          max={10}
+        />
+        <TextInput
+          label="Sort Keyword"
+          value={sortWord}
+          onChange={(event) => setSortWord(event.currentTarget.value)}
+        />
+        <Button onClick={handleSubmit} style={{ backgroundColor: 'rgb(56, 117, 240)' }}>
           Update Settings
-        </button>
+        </Button>
         {updatedSettings && (
-          <div className="updated-settings">
-            <p>Updated Settings:</p>
-            <p>Show Completed ToDos: {updatedSettings.showCompleted ? 'Yes' : 'No'}</p>
-            <p>Items Per Page: {updatedSettings.itemsPerPage}</p>
-            <p>Sort Keyword: {updatedSettings.sortWord}</p>
-          </div>
+          <Paper shadow="xs" padding="md">
+            <Text>Updated Settings:</Text>
+            <Text>Hide Completed ToDos: {updatedSettings.showCompleted ? 'Yes' : 'No'}</Text>
+            <Text>Items Per Page: {updatedSettings.itemsPerPage}</Text>
+            <Text>Sort Keyword: {updatedSettings.sortWord}</Text>
+          </Paper>
         )}
-      </div>
-    </div>
+      </Group>
+    </Paper>
   );
 };
 

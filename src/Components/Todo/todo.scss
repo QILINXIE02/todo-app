@@ -1,94 +1,44 @@
-body, html {
-  height: 100%;
-  margin: 0;
-  padding:0;
-  width: 100%;
-}
-.todo-details {
-  display:flex;
-  flex-direction:column;
+.todo-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
 
-  header {
-      display:flex;
-      flex-direction:row;
-      justify-content:space-between;
-      padding:.5em 1em;
-  }
+  .add-todo {
+    flex: 1;
+    margin-right: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
 
-  .item {
-      flex:1;
-      padding: 1em;
-  }
-
-}
-
-.todo {
-
-  display:flex;
-  flex-direction:row;
-  justify-content: flex-start;
-  margin: 2em;
-
-  form {
-
-      display:flex;
-      flex-direction:column;
-      margin-right: 2em;
+    .form-group {
+      margin-bottom: 10px;
 
       label {
-          display: flex;
-          flex-direction:column;
-          margin-bottom: 1em;
+        display: block;
+        margin-bottom: 5px;
       }
+
+      input {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+    }
   }
 
-  ul {
-      list-style-type:none;
-      margin:0;
-      padding:0;
+  .todos {
+    flex: 2;
 
-      li {
+    .todo-item {
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
 
-          align-items: center;
-          display:flex;
-          flex-direction:row;
-          font-size: .75em;
-          margin: .75em .5em;
-
-          &.complete-true {
-            span {
-              background: pink;
-              text-decoration:line-through;
-              &:hover {
-                 background: seagreen;
-              }
-            }
-          }
-
-          span {
-              background: #e0e0e0;
-              cursor:pointer;
-              &:hover {
-                  background: pink;
-              }
-          }
-           span, input {
-               border: .5px solid #eee;
-               display:inline-block;
-               padding: .2em .25em;
-               width: 300px;
-           }
-
-          button {
-              background: transparent;
-              border:none;
-              color:blue;
-              cursor:pointer;
-              padding:0;
-              margin: 0 .75em;
-          }
-
+      .mantine-Group-root {
+        margin-bottom: 10px;
       }
+    }
   }
-
 }

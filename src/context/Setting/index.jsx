@@ -3,13 +3,11 @@ import React, { createContext, useState } from 'react';
 export const SettingsContext = createContext();
 
 const SettingsProvider = ({ children }) => {
-  const defaultSettings = {
+  const [displaySettings, setDisplaySettings] = useState({
+    hideCompleted: false,
     itemsPerPage: 3,
-    hideCompleted: true,
     sortWord: 'difficulty',
-  };
-
-  const [displaySettings, setDisplaySettings] = useState(defaultSettings);
+  });
 
   return (
     <SettingsContext.Provider value={{ displaySettings, setDisplaySettings }}>
