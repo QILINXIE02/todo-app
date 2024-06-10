@@ -1,3 +1,23 @@
+.settings-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin-top: 20px; /* Adjusted margin-top to match todo.scss */
+}
+
+.settings-header {
+  background-color: black;
+  color: white;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 8px; 
+  text-align: center;
+
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
 .settings {
   margin-top: 20px;
 
@@ -19,6 +39,15 @@
 
   button {
     margin-top: 10px;
+    background-color: rgb(56, 117, 240); /* Added to match todo.scss */
+    color: white; /* Added to match todo.scss */
+    border: none; /* Added to match todo.scss */
+    padding: 10px 20px; /* Added to match todo.scss */
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(26, 86, 220); /* Added to match todo.scss */
+    }
   }
 
   .updated-settings {

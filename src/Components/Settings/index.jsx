@@ -24,13 +24,13 @@ const Settings = () => {
   return (
     <Paper shadow="xs" padding="md" className="settings">
       <Group position="apart" align="center">
-        <Title order={2}>
+        <Title order={3}>
           <IconSettings /> Manage Settings
         </Title>
       </Group>
       <Group direction="column" spacing="lg" align="start">
         <Switch
-          label="Hide Completed ToDos"
+          label="Update Settings"
           checked={showCompleted}
           onChange={(event) => setShowCompleted(event.currentTarget.checked)}
         />
@@ -47,7 +47,7 @@ const Settings = () => {
           onChange={(event) => setSortWord(event.currentTarget.value)}
         />
         <Button onClick={handleSubmit} style={{ backgroundColor: 'rgb(56, 117, 240)' }}>
-          Update Settings
+          Show New Settings
         </Button>
         {updatedSettings && (
           <Paper shadow="xs" padding="md">
