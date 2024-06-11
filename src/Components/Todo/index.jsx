@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { v4 as uuid } from 'uuid';
 import { SettingsContext } from '../../context/Setting';
 import { Pagination, Button, Paper, Group, Text, Title } from '@mantine/core';
 import './todo.scss';
-import useForm from '../../hooks/form';
+import { getTodos, addTodo as addTodoApi, deleteTodo as deleteTodoApi, updateTodo as updateTodoApi } from '../../api/apiService'; // Import API functions
 
 const Todo = () => {
   const { displaySettings } = useContext(SettingsContext);
@@ -12,34 +11,70 @@ const Todo = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = displaySettings.itemsPerPage;
   const defaultValues = { difficulty: 4 };
-  const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
-
-  function addItem(item) {
-    item.id = uuid();
-    item.complete = false;
-    setList([...list, item]);
-  }
-
-  function deleteItem(id) {
-    const items = list.filter((item) => item.id !== id);
-    setList(items);
-  }
-
-  function toggleComplete(id) {
-    const items = list.map((item) => {
-      if (item.id === id) {
-        item.complete = !item.complete;
-      }
-      return item;
-    });
-    setList(items);
-  }
+  const [formData, setFormData] = useState(defaultValues);
 
   useEffect(() => {
-    let incompleteCount = list.filter((item) => !item.complete).length;
-    setIncomplete(incompleteCount);
-    document.title = `To Do List: ${incomplete}`;
-  }, [list, incomplete]);
+    fetchTodos();
+  }, []);
+
+  const fetchTodos = async () => {
+    try {
+      const todos = await getTodos();
+      setList(todos);
+      const incompleteCount = todos.filter((item) => !item.complete).length;
+      setIncomplete(incompleteCount);
+      document.title = `To Do List: ${incomplete} items pending`;
+    } catch (error) {
+      console.error('Error fetching todos:', error);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const newTodo = await addTodoApi(formData); // Use addTodo API function
+      setList([...list, newTodo]);
+      const newIncompleteCount = incomplete + 1;
+      setIncomplete(newIncompleteCount);
+      setFormData(defaultValues);
+    } catch (error) {
+      console.error('Error adding todo:', error);
+    }
+  };
+
+  const deleteItem = async (id) => {
+    try {
+      await deleteTodoApi(id); // Use deleteTodo API function
+      const items = list.filter((item) => item.id !== id);
+      setList(items);
+      const newIncompleteCount = items.filter((item) => !item.complete).length;
+      setIncomplete(newIncompleteCount);
+    } catch (error) {
+      console.error('Error deleting todo:', error);
+    }
+  };
+
+  const toggleComplete = async (id) => {
+    try {
+      const updatedItems = list.map((item) => {
+        if (item.id === id) {
+          item.complete = !item.complete;
+          updateTodoApi(id, item); // Use updateTodo API function
+        }
+        return item;
+      });
+      setList(updatedItems);
+      const newIncompleteCount = updatedItems.filter((item) => !item.complete).length;
+      setIncomplete(newIncompleteCount);
+    } catch (error) {
+      console.error('Error updating todo:', error);
+    }
+  };
 
   const paginatedTodos = list.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
@@ -58,7 +93,8 @@ const Todo = () => {
                 To Do Item
                 <input
                   type="text"
-                  name="text"
+                  name="itemtodo"
+                  value={formData.itemtodo}
                   placeholder="Item Details"
                   onChange={handleChange}
                 />
@@ -69,7 +105,8 @@ const Todo = () => {
                 Assigned To
                 <input
                   type="text"
-                  name="assignee"
+                  name="name"
+                  value={formData.name}
                   placeholder="Assignee Name"
                   onChange={handleChange}
                 />
@@ -83,7 +120,7 @@ const Todo = () => {
                   min="1"
                   max="5"
                   name="difficulty"
-                  defaultValue={defaultValues.difficulty}
+                  value={formData.difficulty}
                   onChange={handleChange}
                   className="difficulty-slider"
                 />
@@ -112,10 +149,10 @@ const Todo = () => {
                     X
                   </Button>
                 </Group>
-                <Text>{todo.text}</Text>
+                <Text>To-do Task: {todo.itemtodo}</Text>
                 <Group position="apart">
-                  <Text>{todo.assignee}</Text>
-                  <Text>Difficulty: {todo.difficulty}</Text>
+                  <Text>Assigneee : {todo.name}</Text>
+                  <Text>Difficulty: {todo.difficulty} </Text>
                 </Group>
               </Paper>
             ))}
@@ -130,4 +167,6 @@ const Todo = () => {
   );
 };
 
+
 export default Todo;
+
