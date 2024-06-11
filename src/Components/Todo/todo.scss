@@ -1,5 +1,3 @@
-// todo.scss
-
 .todo-container {
   display: flex;
   flex-direction: column;
@@ -92,6 +90,15 @@
           &:hover {
             background-color: darkgreen;
           }
+          &.completed {
+            background-color: red;
+          }
+        }
+
+        .close-button {
+          margin-left: 10px;
+          font-size: 16px;
+          cursor: pointer;
         }
 
         .todo-content {
@@ -102,4 +109,3 @@
     }
   }
 }
-

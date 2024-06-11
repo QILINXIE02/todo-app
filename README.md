@@ -1,5 +1,13 @@
 # todo-app
 
+## Day 2: 
+To Do List Manager Phase 2: Incorporate configuration settings to the application.
+![alt text](img/day-2-home.png)
+![alt text](img/day-2-settings.png)
+![alt text](img/auth-api.png) @ https://github.com/QILINXIE02/auth-api
+![alt text](img/resty.png) using get: https://auth-api-todo.onrender.com/api/v1/todos
+
+
 ## Phase 1 Requirements
 This application currently combines application state and user settings at the top level, which was a good proof of concept. However, to make it production-ready, we need to properly modularize the application into separate components and implement the Context API to manage basic application settings.
 
