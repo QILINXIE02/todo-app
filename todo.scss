@@ -1,5 +1,3 @@
-// todo.scss
-
 .todo-container {
   display: flex;
   flex-direction: column;
@@ -50,6 +48,7 @@
         border: none;
         padding: 10px 20px;
         cursor: pointer;
+        border-radius: 4px;
 
         &:hover {
           background-color: rgb(26, 86, 220);
@@ -94,6 +93,18 @@
           }
         }
 
+        .close-button {
+          background-color: transparent;
+          color: red;
+          border: none;
+          padding: 8px;
+          cursor: pointer;
+          font-size: 14px;
+          &:hover {
+            background-color: rgba(255, 0, 0, 0.1);
+          }
+        }
+
         .todo-content {
           display: flex;
           align-items: center;
@@ -102,4 +113,3 @@
     }
   }
 }
-
