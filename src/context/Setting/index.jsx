@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 export const SettingsContext = createContext();
 
@@ -9,8 +9,20 @@ const SettingsProvider = ({ children }) => {
     sortWord: 'difficulty',
   });
 
+  useEffect(() => {
+    const savedSettings = localStorage.getItem('displaySettings');
+    if (savedSettings) {
+      setDisplaySettings(JSON.parse(savedSettings));
+    }
+  }, []);
+
+  const updateSettings = (newSettings) => {
+    setDisplaySettings(newSettings);
+    localStorage.setItem('displaySettings', JSON.stringify(newSettings));
+  };
+
   return (
-    <SettingsContext.Provider value={{ displaySettings, setDisplaySettings }}>
+    <SettingsContext.Provider value={{ displaySettings, setDisplaySettings: updateSettings }}>
       {children}
     </SettingsContext.Provider>
   );

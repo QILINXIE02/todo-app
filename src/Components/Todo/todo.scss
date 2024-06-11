@@ -1,44 +1,102 @@
+// todo.scss
+
 .todo-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   padding: 20px;
 
-  .add-todo {
-    flex: 1;
-    margin-right: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
+  .header-section {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    margin-bottom: 20px;
     border-radius: 8px;
+    text-align: center;
 
-    .form-group {
-      margin-bottom: 10px;
-
-      label {
-        display: block;
-        margin-bottom: 5px;
-      }
-
-      input {
-        width: 100%;
-        padding: 5px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
+    h1 {
+      font-size: 1.5rem;
     }
   }
 
-  .todos {
-    flex: 2;
+  .content-section {
+    display: flex;
+    gap: 20px;
 
-    .todo-item {
-      margin-bottom: 10px;
-      padding: 10px;
+    .add-todo {
+      flex: 1;
+      padding: 20px;
       border: 1px solid #ccc;
       border-radius: 8px;
 
-      .mantine-Group-root {
+      .form-group {
         margin-bottom: 10px;
+
+        label {
+          display: block;
+          margin-bottom: 5px;
+        }
+
+        input {
+          width: 100%;
+          padding: 5px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+      }
+
+      .add-todo-button {
+        background-color: rgb(56, 117, 240);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: rgb(26, 86, 220);
+        }
+      }
+
+      .difficulty-slider {
+        cursor: pointer;
+        accent-color: rgb(75, 134, 252);
+        &:hover {
+          .mantine-Slider-tooltip {
+            display: block;
+          }
+        }
+      }
+    }
+
+    .todos {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+
+      .todo-item {
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+
+        .pending-button {
+          background-color: green;
+          color: white;
+          border: none;
+          padding: 8px 16px;
+          cursor: pointer;
+          border-radius: 16px;
+          font-size: 14px;
+          &:hover {
+            background-color: darkgreen;
+          }
+        }
+
+        .todo-content {
+          display: flex;
+          align-items: center;
+        }
       }
     }
   }
 }
+

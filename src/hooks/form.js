@@ -1,8 +1,7 @@
-// hooks/form.js
 import { useState, useEffect } from 'react';
 
 const useForm = (callback, defaultValues = {}) => {
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState(defaultValues);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -30,7 +29,7 @@ const useForm = (callback, defaultValues = {}) => {
 
   useEffect(() => {
     setValues(defaultValues);
-  }, [defaultValues]);
+  }, []); // Empty dependency array to run only once
 
   return {
     handleChange,
