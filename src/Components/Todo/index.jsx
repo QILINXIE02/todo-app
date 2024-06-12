@@ -65,7 +65,7 @@ const Todo = () => {
       const updatedItems = list.map((item) => {
         if (item.id === id) {
           item.complete = !item.complete;
-          updateTodoApi(id, item);
+          updateTodoApi(id, item); // Assuming updateTodoApi exists to update the item in the backend
         }
         return item;
       });

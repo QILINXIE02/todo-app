@@ -1,32 +1,44 @@
 import React, { useState, useContext } from 'react';
+import { When } from 'react-if';
 import { LoginContext } from './context';
 
 const Login = () => {
-  const { login, loggedIn, logout } = useContext(LoginContext);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const { loggedIn, login, logout } = useContext(LoginContext);
+  const [credentials, setCredentials] = useState({ username: '', password: '' });
+
+  const handleChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(username, password);
+    login(credentials.username, credentials.password);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">{loggedIn ? 'Logout' : 'Login'}</button>
-      </form>
+      <When condition={loggedIn}>
+        <button onClick={logout}>Log Out</button>
+      </When>
+
+      <When condition={!loggedIn}>
+        <form onSubmit={handleSubmit}>
+          <input
+            placeholder="UserName"
+            name="username"
+            onChange={handleChange}
+            required
+          />
+          <input
+            placeholder="Password"
+            name="password"
+            type="password"
+            onChange={handleChange}
+            required
+          />
+          <button>Login</button>
+        </form>
+      </When>
     </>
   );
 };
