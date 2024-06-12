@@ -3,14 +3,16 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Todo from './Components/Todo';
 import Settings from './Components/Settings';
 import Header from './Components/Header';
-import { MantineProvider } from '@mantine/core'; 
-import SettingsProvider from './context/Setting';
+import LoginProvider from './Components/auth/context'; 
+import Auth from './Components/auth/auth'; 
+import Login from './Components/auth/login'; 
+import SettingsProvider from "./context/Setting";
 import './App.scss';
 
 const App = () => {
   return (
-    <MantineProvider> 
-      <SettingsProvider>
+    <LoginProvider>
+      <SettingsProvider> {/* Wrap your components with SettingsProvider */}
         <Router>
           <Header />
           <Routes>
@@ -19,8 +21,21 @@ const App = () => {
           </Routes>
           <footer>@2024 Qilin Xie</footer>
         </Router>
+        <Login />
+        <Auth capability="read">
+          <div>Any valid user can see this</div>
+        </Auth>
+        <Auth capability="create">
+          <div>Users with create access can see this</div>
+        </Auth>
+        <Auth capability="update">
+          <div>Users with update access can see this</div>
+        </Auth>
+        <Auth capability="delete">
+          <div>Users with delete access can see this</div>
+        </Auth>
       </SettingsProvider>
-    </MantineProvider>
+    </LoginProvider>
   );
 };
 

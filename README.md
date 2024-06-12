@@ -1,5 +1,9 @@
 # todo-app
 
+## Day 3:
+In Phase 3, we’d like to extend the functionality of the application by requiring users be logged in to view items and also restrict access based on user type. The user stories from Phases 1, and 2 remain unchanged. 
+
+
 ## Day 2: 
 To Do List Manager Phase 2: Incorporate configuration settings to the application.
 ![alt text](img/day-2-home.png)

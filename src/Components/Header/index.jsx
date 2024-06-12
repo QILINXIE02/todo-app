@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { LoginContext } from '../auth/context';
+import Login from '../auth/login';
 import './header.scss';
 
 const Header = () => {
+  const { loggedIn, logout } = useContext(LoginContext);
+
   return (
     <header className="header">
       <div className="header-left">
@@ -10,7 +14,11 @@ const Header = () => {
         <Link to="/settings">Settings</Link>
       </div>
       <div className="header-right">
-        <button className="logout-button">Log out</button>
+        {loggedIn ? (
+          <button className="logout-button" onClick={logout}>Log out</button>
+        ) : (
+          <Login />
+        )}
       </div>
     </header>
   );

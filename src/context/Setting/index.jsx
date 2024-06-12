@@ -17,7 +17,10 @@ const SettingsProvider = ({ children }) => {
   }, []);
 
   const updateSettings = (newSettings) => {
-    setDisplaySettings(newSettings);
+    setDisplaySettings((prevSettings) => ({
+      ...prevSettings,
+      ...newSettings,
+    }));
     localStorage.setItem('displaySettings', JSON.stringify(newSettings));
   };
 

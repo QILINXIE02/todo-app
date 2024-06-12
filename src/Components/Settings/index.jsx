@@ -5,10 +5,10 @@ import { IconSettings } from '@tabler/icons-react';
 import './settings.scss';
 
 const Settings = () => {
-  const { displaySettings, setDisplaySettings } = useContext(SettingsContext);
-  const [showCompleted, setShowCompleted] = useState(displaySettings.hideCompleted);
-  const [itemsPerPage, setItemsPerPage] = useState(displaySettings.itemsPerPage);
-  const [sortWord, setSortWord] = useState(displaySettings.sortWord);
+  const { displaySettings = {}, setDisplaySettings } = useContext(SettingsContext);
+  const [showCompleted, setShowCompleted] = useState(displaySettings.hideCompleted || false);
+  const [itemsPerPage, setItemsPerPage] = useState(displaySettings.itemsPerPage || 10);
+  const [sortWord, setSortWord] = useState(displaySettings.sortWord || '');
   const [updatedSettings, setUpdatedSettings] = useState(null);
 
   const handleSubmit = () => {
