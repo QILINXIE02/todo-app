@@ -87,11 +87,13 @@
           cursor: pointer;
           border-radius: 16px;
           font-size: 14px;
+
+          &.completed { // Added for completed state
+            background-color: red;
+          }
+
           &:hover {
             background-color: darkgreen;
-          }
-          &.completed {
-            background-color: red;
           }
         }
 

@@ -1,12 +1,14 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { SettingsContext } from '../../context/Setting';
 import { Pagination, Button, Paper, Group, Text, Title } from '@mantine/core';
 import './todo.scss';
 import { getTodos, addTodo as addTodoApi, deleteTodo as deleteTodoApi, updateTodo as updateTodoApi } from '../../api/apiService';
 import Auth from '../auth/auth';
+import { LoginContext } from '../auth/context'; // Import LoginContext for user information
 
 const Todo = () => {
   const { displaySettings } = useContext(SettingsContext);
+  const { user } = useContext(LoginContext); // Access user information from LoginContext
   const [list, setList] = useState([]);
   const [incomplete, setIncomplete] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -141,7 +143,7 @@ const Todo = () => {
                   <Group position="apart">
                     <div>
                       <Button
-                        className="pending-button"
+                        className={`pending-button ${todo.complete ? 'completed' : ''}`}
                         onClick={() => toggleComplete(todo.id)}
                       >
                         {todo.complete ? 'Complete' : 'Pending'}
