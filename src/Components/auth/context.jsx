@@ -29,56 +29,60 @@ export const LoginContext = createContext();
 
 const LoginProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [user, setUser] = useState({ capabilities: [] });
+  const [user, setUser] = useState(null); // Initialize user state with null
   const [error, setError] = useState(null);
-
-  const can = (capability) => {
-    return user?.capabilities?.includes(capability);
-  }
 
   const login = (username, password) => {
     const auth = testUsers[username];
 
     if (auth && auth.password === password) {
       try {
-        validateToken(auth.token);
-      } catch (e) {
-        setLoginState(false, null, {}, e);
-        console.error(e);
+        const decodedToken = jwt_decode(auth.token);
+        setLoggedIn(true);
+        setUser({ name: auth.name, capabilities: decodedToken.capabilities });
+        setError(null);
+        cookie.save('auth', auth.token);
+      } catch (error) {
+        setLoggedIn(false);
+        setUser(null);
+        setError(error.message);
+        console.error('Token decode error:', error);
       }
+    } else {
+      setLoggedIn(false);
+      setUser(null);
+      setError('Invalid username or password');
     }
-  }
+  };
 
   const logout = () => {
-    setLoginState(false, null, {});
-  };
-
-  const validateToken = (token) => {
-    try {
-      const validUser = jwt_decode(token);
-      setLoginState(true, token, validUser);
-    } catch (e) {
-      setLoginState(false, null, {}, e);
-      console.log('Token Validation Error', e);
-    }
-  };
-
-  const setLoginState = (loggedIn, token, user, error) => {
-    cookie.save('auth', token);
-    setLoggedIn(loggedIn);
-    setUser(user);
-    setError(error || null);
+    setLoggedIn(false);
+    setUser(null);
+    cookie.remove('auth');
   };
 
   useEffect(() => {
-    const qs = new URLSearchParams(window.location.search);
-    const cookieToken = cookie.load('auth');
-    const token = qs.get('token') || cookieToken || null;
-    validateToken(token);
+    const token = cookie.load('auth');
+    if (token) {
+      try {
+        const decodedToken = jwt_decode(token);
+        setLoggedIn(true);
+        setUser({ name: decodedToken.name, capabilities: decodedToken.capabilities });
+      } catch (error) {
+        console.error('Token decode error:', error);
+        setLoggedIn(false);
+        setUser(null);
+        setError(error.message);
+      }
+    }
   }, []);
 
+  const can = (capability) => {
+    return user && user.capabilities.includes(capability);
+  };
+
   return (
-    <LoginContext.Provider value={{ loggedIn, can, login, logout, user, error }}>
+    <LoginContext.Provider value={{ loggedIn, user, error, login, logout, can }}>
       {children}
     </LoginContext.Provider>
   );
