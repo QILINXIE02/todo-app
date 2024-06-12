@@ -1,5 +1,9 @@
 # todo-app
 
+## Day 4:
+
+
+
 ## Day 3:
 In Phase 3, I will extend the functionality of the application by requiring users be logged in to view items and also restrict access based on user type. The user stories from Phases 1, and 2 remain unchanged. 
 

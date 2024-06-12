@@ -1,42 +1,50 @@
 import axios from 'axios';
 
-const API_URL = 'https://auth-api-todo.onrender.com/api/v1/';
+const API_BASE_URL = 'https://auth-api-todo.onrender.com/api/v1'; // Replace with your API base URL
 
+const axiosInstance = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// Function to fetch all todos
 export const getTodos = async () => {
   try {
-    const response = await axios.get(`${API_URL}/todos`);
+    const response = await axiosInstance.get('/todos');
     return response.data;
   } catch (error) {
-    console.error('Error fetching todos:', error);
     throw error;
   }
 };
 
-export const addTodo = async (todo) => {
+// Function to add a new todo
+export const addTodo = async (todoData) => {
   try {
-    const response = await axios.post(`${API_URL}/todos`, todo);
+    const response = await axiosInstance.post('/todos', todoData);
     return response.data;
   } catch (error) {
-    console.error('Error adding todo:', error);
     throw error;
   }
 };
 
+// Function to update a todo (mark as complete)
+export const updateTodo = async (id, todoData) => {
+  try {
+    const response = await axiosInstance.put(`/todos/${id}`, todoData);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Function to delete a todo
 export const deleteTodo = async (id) => {
   try {
-    await axios.delete(`${API_URL}/todos/${id}`);
-  } catch (error) {
-    console.error('Error deleting todo:', error);
-    throw error;
-  }
-};
-
-export const updateTodo = async (id, updatedTodo) => {
-  try {
-    const response = await axios.put(`${API_URL}/todos/${id}`, updatedTodo);
+    const response = await axiosInstance.delete(`/todos/${id}`);
     return response.data;
   } catch (error) {
-    console.error('Error updating todo:', error);
     throw error;
   }
 };
