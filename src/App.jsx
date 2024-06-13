@@ -5,7 +5,6 @@ import Settings from './Components/Settings';
 import Header from './Components/Header';
 import LoginProvider from './Components/auth/context';
 import Auth from './Components/auth/auth';
-import Login from './Components/auth/login';
 import SettingsProvider from './context/Setting';
 import './App.scss';
 
@@ -21,7 +20,6 @@ const App = () => {
           </Routes>
           <footer>@2024 Qilin Xie</footer>
         </Router>
-        <Login /> {/* Include the Login component for user login/logout */}
         <Auth capability="read">
           <div>Any valid user can see this</div>
         </Auth>
