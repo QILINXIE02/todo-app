@@ -19,7 +19,6 @@
     "js-cookie": "^3.0.5",
     "js-cookies": "^1.0.4",
     "jwt-decode": "^3.0.0",
-    "msw": "^2.3.1",
     "react": "^18.3.1",
     "react-cookies": "^0.1.1",
     "react-dom": "^18.2.0",
@@ -41,6 +40,7 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jsdom": "^24.1.0",
+    "msw": "^2.3.1",
     "sass": "^1.77.4",
     "vite": "^5.2.0"
   }
