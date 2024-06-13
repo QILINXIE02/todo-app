@@ -8,4 +8,7 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./setupTest.js'],
   },
+  define: {
+    'import.meta.env.API_BASE_URL': JSON.stringify('https://auth-api-todo.onrender.com/api/v1'), // Adjust the URL as per your API server configuration
+  },
 });

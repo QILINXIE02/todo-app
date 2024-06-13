@@ -23,10 +23,14 @@ const Todo = () => {
   const fetchTodos = async () => {
     try {
       const todos = await getTodos();
-      setList(todos);
-      const incompleteCount = todos.filter((item) => !item.complete).length;
-      setIncomplete(incompleteCount);
-      document.title = `To Do List: ${incomplete} items pending`;
+      if (Array.isArray(todos)) {
+        setList(todos);
+        const incompleteCount = todos.filter((item) => !item.complete).length;
+        setIncomplete(incompleteCount);
+        document.title = `To Do List: ${incomplete} items pending`;
+      } else {
+        console.error('Fetch todos returned non-array data:', todos);
+      }
     } catch (error) {
       console.error('Error fetching todos:', error);
     }
@@ -51,7 +55,6 @@ const Todo = () => {
       // Display error message to the user
     }
   };
-  
 
   const deleteItem = async (id) => {
     try {
@@ -139,35 +142,39 @@ const Todo = () => {
 
           <div className="todos">
             <Title order={3}>Pending Items</Title>
-            {paginatedTodos
-              .filter((todo) => !displaySettings.hideCompleted || !todo.complete)
-              .map((todo) => (
-                <Paper key={todo.id} shadow="xs" padding="md" className="todo-item">
-                  <Group position="apart">
-                    <div>
-                      <Button
-                        className={`pending-button ${todo.complete ? 'completed' : ''}`}
-                        onClick={() => toggleComplete(todo.id)}
-                      >
-                        {todo.complete ? 'Complete' : 'Pending'}
-                      </Button>
-                    </div>
-                    <Button variant="outline" color="red" onClick={() => deleteItem(todo.id)}>
-                      X
-                    </Button>
-                  </Group>
-                  <Text>To-do Task: {todo.itemtodo}</Text>
-                  <Group position="apart">
-                    <Text>Assignee: {todo.name}</Text>
-                    <Text>Difficulty: {todo.difficulty}</Text>
-                  </Group>
-                </Paper>
-              ))}
-            <Pagination
-              total={Math.ceil(list.length / itemsPerPage)}
-              page={currentPage}
-              onChange={setCurrentPage}
-            />
+            {list.length > 0 && (
+              <>
+                {paginatedTodos
+                  .filter((todo) => !displaySettings.hideCompleted || !todo.complete)
+                  .map((todo) => (
+                    <Paper key={todo.id} shadow="xs" padding="md" className="todo-item">
+                      <Group position="apart">
+                        <div>
+                          <Button
+                            className={`pending-button ${todo.complete ? 'completed' : ''}`}
+                            onClick={() => toggleComplete(todo.id)}
+                          >
+                            {todo.complete ? 'Complete' : 'Pending'}
+                          </Button>
+                        </div>
+                        <Button variant="outline" color="red" onClick={() => deleteItem(todo.id)}>
+                          X
+                        </Button>
+                      </Group>
+                      <Text>To-do Task: {todo.itemtodo}</Text>
+                      <Group position="apart">
+                        <Text>Assignee: {todo.name}</Text>
+                        <Text>Difficulty: {todo.difficulty}</Text>
+                      </Group>
+                    </Paper>
+                  ))}
+                <Pagination
+                  total={Math.ceil(list.length / itemsPerPage)}
+                  page={currentPage}
+                  onChange={setCurrentPage}
+                />
+              </>
+            )}
           </div>
         </div>
       </div>

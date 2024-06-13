@@ -1,7 +1,16 @@
 # todo-app
 
 ## Day 4:
+To Do List Manager Phase 4: Integrating with a live API.
 
+In this final phase,  users will be logged in through a live authentication server, in order to see the to do items. Additionally, based on their user type, they will be allowed (or denied) to perform actions such as editing or deleting them. All To Do items will be stored in a database, accessed through a deployed API.
+![alt text](img/final-day-home.png)
+username: 
+
+![alt text](img/auth-api.png) @ https://github.com/QILINXIE02/auth-api
+![alt text](img/day4-render.png)
+- also try getting it with my RESTy app @https://qilin-resty.netlify.app/:
+![alt text](img/resty.png)
 
 
 ## Day 3:
@@ -16,8 +25,7 @@ Login with admin: ![alt text](img/phase3-login.png)
 To Do List Manager Phase 2: Incorporate configuration settings to the application.
 ![alt text](img/day-2-home.png)
 ![alt text](img/day-2-settings.png)
-![alt text](img/auth-api.png) @ https://github.com/QILINXIE02/auth-api
-![alt text](img/resty.png) using get: https://auth-api-todo.onrender.com/api/v1/todos
+
 
 
 ## Phase 1 Requirements

@@ -4,6 +4,7 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import App from './App'; // Replace with your main application component
 import { LoginProvider } from './context/LoginContext';
+import { MantineProvider } from '@mantine/core';
 
 // Define a mock server for this test file
 const server = setupServer(
@@ -36,7 +37,9 @@ describe('Integration tests with mock server', () => {
   it('should login successfully and display user info', async () => {
     render(
       <LoginProvider>
-        <App />
+        <MantineProvider> {/* Ensure MantineProvider is wrapped around App */}
+          <App />
+        </MantineProvider>
       </LoginProvider>
     );
 
